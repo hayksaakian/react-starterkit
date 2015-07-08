@@ -1,5 +1,31 @@
 import React from 'react';
 
+
+class Plugin extends React.Component {
+  constructor (props, context) {
+    super(props)
+
+  }
+  render(){
+    var p = this.props
+    var mimes = (this.props.mimetypes || []).map((m) => {
+      return <li>{m.description} {m.suffixes} {m.type}</li>
+    })
+
+    return (
+      <div>
+        <p>
+          <strong>{p.name} ({p.filename})</strong>  {p.description}
+        </p>
+        <ol>
+          {mimes}
+        </ol>
+      </div>
+    )
+  }
+}
+
+
 class Tracker extends React.Component{
 
   constructor (props, context) {
@@ -8,25 +34,27 @@ class Tracker extends React.Component{
       user_agent: navigator.userAgent.toString(),
       ip_host: "",
       ip_address: "",
-      plugins: {}      
+      plugins: []      
     }
   }
 
-  handlePlugins (e){
-    this.setState({
-      plugins: e.detail
-    })
-  }
-
   componentDidMount(){
-    window.addEventListener("detected_plugins", this.handlePlugins.bind(this));
+    window.addEventListener("detected_plugins", (e) => {
+      console.log("detected_plugins", e)
+      this.setState({
+        plugins: e.detail
+      })
+    });
+    // if(window.DetectPlugins){
+    //   window.DetectPlugins()
+    // }
   }
 
   render() {
-    console.log(this.state)
+    console.log('re-render', this.state)
 
-    var plugins = (Object.keys(this.state.plugins) || []).map((p) => {
-      return <li>{p}</li>
+    var plugins = (this.state.plugins || []).map((p) => {
+      return <li><Plugin {...p} /> </li>
     })
 
     return (
@@ -42,7 +70,7 @@ class Tracker extends React.Component{
           </dd>
         </dl>
         <ol>
-          {JSON.stringify(this.state.PLUGINS)}
+          {plugins}
         </ol>
         <div id="out">
           <div id="output1"></div>
