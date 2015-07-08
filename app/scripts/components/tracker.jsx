@@ -2,17 +2,14 @@ import React from 'react';
 
 class Tracker extends React.Component{
 
-  getInitialState(){
-    return {
+  constructor (props, context) {
+    super(props);
+    this.state = {
       user_agent: navigator.userAgent.toString(),
       ip_host: "",
       ip_address: "",
       plugins: {}      
     }
-  }
-
-  constructor (props, context) {
-    super(props);
   }
 
   handlePlugins (e){
@@ -26,6 +23,7 @@ class Tracker extends React.Component{
   }
 
   render() {
+    console.log(this.state)
 
     var plugins = (Object.keys(this.state.plugins) || []).map((p) => {
       return <li>{p}</li>
