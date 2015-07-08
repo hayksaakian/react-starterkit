@@ -2,19 +2,34 @@ import React from 'react';
 
 class Tracker extends React.Component{
 
-  constructor(props, context) {
-   super(props);
+  getInitialState(){
+    return {
+      user_agent: navigator.userAgent.toString(),
+      ip_host: "",
+      ip_address: "",
+      plugins: {}      
+    }
+  }
+
+  constructor (props, context) {
+    super(props);
+  }
+
+  handlePlugins (e){
+    this.setState({
+      plugins: e.detail
+    })
+  }
+
+  componentDidMount(){
+    window.DetectPlugins(this.handlePlugins)
   }
 
   render() {
-    var uas = navigator.userAgent.toString()
-    var post_data = {
-      user_agent: uas,
-      ip_host: "",
-      ip_address: "",
-      plugins: window.PLUGINS,
-      mimetypes: window.MIMES
-    }
+
+    var plugins = (Object.keys(this.state.plugins) || []).map((p) => {
+      return <li>{p}</li>
+    })
 
     return (
       <div>
@@ -22,21 +37,23 @@ class Tracker extends React.Component{
         <dl>
           <dt>User Agent</dt>
           <dd>
-            {uas}
+            {this.state.user_agent}
           </dd>
           <dt>Plugins</dt>
           <dd>
-            {window.PLUGINS}
           </dd>
         </dl>
+        <ol>
+          {JSON.stringify(this.state.PLUGINS)}
+        </ol>
         <div id="out">
-        <div id="output1"></div>
-        <div id="output2"></div>
-        <div id="output3"></div>
-        <div id="output4"></div>
-        <div id="output5"></div>
-        <div id="output6"></div>
-        <div id="output7"></div>
+          <div id="output1"></div>
+          <div id="output2"></div>
+          <div id="output3"></div>
+          <div id="output4"></div>
+          <div id="output5"></div>
+          <div id="output6"></div>
+          <div id="output7"></div>
         </div>
       </div>
     );
