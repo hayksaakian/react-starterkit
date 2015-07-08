@@ -9,7 +9,7 @@ class Plugin extends React.Component {
   render(){
     var p = this.props
     var mimes = (this.props.mimetypes || []).map((m) => {
-      return <li>{m.description} {m.suffixes} {m.type}</li>
+      return <li><strong>{m.description} ({m.suffixes})</strong> {m.type}</li>
     })
 
     return (

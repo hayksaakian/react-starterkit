@@ -11,8 +11,8 @@ class App extends React.Component {
         <Header />
         <div className="content">
           <RouteHandler/>
+          <Tracker />
         </div>
-        <Tracker />
       </div>
     );
   }
