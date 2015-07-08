@@ -19,7 +19,7 @@ class Tracker extends React.Component{
   }
 
   componentDidMount(){
-    window.DetectPlugins(this.handlePlugins)
+    window.addEventListener("detected_plugins", this.handlePlugins);
   }
 
   render() {
