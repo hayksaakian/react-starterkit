@@ -12,7 +12,7 @@
   ],
   "main": "index.html",
   "scripts": {
-    "start": "node node_modules/gulp/bin/gulp.js",
+    "start": "node ./node_modules/gulp/bin/gulp.js",
     "test": "jest"
   },
   "author": "@moklick <mo@webkid.io>",
